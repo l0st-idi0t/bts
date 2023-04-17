@@ -17,6 +17,83 @@ body, html {
     animation: fadein 2s;
     transition: transform 1s, font-size 1s;
 }
+  
+.grid-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    height: 80%;
+    margin-top: 2%;
+    display: grid;
+    grid-template-areas:
+        "spotify youtube youtube"
+        "instagram instagram twitter";
+
+    grid-template-rows: 60% auto;
+    gap: 10px 10px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#Spotify {
+    grid-area: spotify;
+    background: linear-gradient(to right, rgb(156, 104, 253, 1), rgb(197, 169, 248, 0.5)), url('../images/spotify.png');
+}
+
+#Youtube {
+    grid-area: youtube;
+    background: linear-gradient(to right, rgb(156, 104, 253, 1), rgb(197, 169, 248, 0.5)), url('../images/youtube.png');
+}
+
+#Instagram {
+    grid-area: instagram;
+    background: linear-gradient(to right, rgb(156, 104, 253, 1), rgb(197, 169, 248, 0.5)), url('../images/instagram.png');
+}
+
+#Twitter {
+    grid-area: twitter;
+    background: linear-gradient(to right, rgb(156, 104, 253, 1), rgb(197, 169, 248, 0.5)), url('../images/twitter.png');
+}
+
+#Spotify, #Youtube, #Instagram, #Twitter {
+    display: flex;
+    border-radius: 8px;
+    transition: transform 0.5s;
+    color: white;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+#Spotify:hover, #Youtube:hover, #Instagram:hover, #Twitter:hover {
+    transform: scale(1.025);
+    cursor: pointer;
+}
+
+.info {
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 8px;
+    background-color: rgb(240, 240, 240);
+    z-index: 9999;
+    transition: transform 0.4s ease-in-out;
+}
 
 @keyframes fadein {
     from {
