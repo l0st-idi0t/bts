@@ -5,6 +5,7 @@ document.body.style.userSelect = "none";
 const username = localStorage.getItem("username");
 const nameElem = document.getElementById("name");
 nameElem.innerHTML = "Welcome " + username;
+let currentAudio;
 
 setTimeout(()=> {
     nameElem.style.fontSize = "2em";
@@ -71,8 +72,12 @@ async function getSpotifyData() {
     list = document.createElement("ul");
     list.classList.add("track-list");
 
-    for (let i = 0; i < info.length; i++) {
-        const track = info[i];
+    // sort info by highest popularity to lowest
+    info.sort((a, b) => {
+        return b.popularity - a.popularity;
+    });
+
+    for (const track of info) {
         const listItem = document.createElement("li");
         listItem.classList.add("track-item");
         const trackName = document.createElement("span");
@@ -86,7 +91,23 @@ async function getSpotifyData() {
         previewButton.textContent = "Preview";
         previewButton.addEventListener("click", () => {
             const audio = new Audio(track.preview_url);
-            audio.play();
+            if (currentAudio && currentAudio.src != audio.src) {
+                currentAudio.pause();
+                currentAudio.remove();
+                currentAudio = audio;
+                audio.play();
+            } else if (currentAudio && currentAudio.src == audio.src) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                } else {
+                    currentAudio.pause();
+                }
+                audio.remove();
+                return;
+            } else {
+                currentAudio = audio;
+                audio.play();
+            }
         });
         listItem.appendChild(trackName);
         listItem.appendChild(artistName);
