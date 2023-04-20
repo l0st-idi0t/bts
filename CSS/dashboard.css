@@ -95,6 +95,39 @@ body, html {
     transition: transform 0.4s ease-in-out;
 }
 
+.track-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.track-item {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.track-name {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.preview-button {
+    background-color: #1db954;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 16px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.preview-button:hover {
+    background-color: #1ed760;
+}
+
 @keyframes fadein {
     from {
         opacity: 0;
