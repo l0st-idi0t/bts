@@ -43,7 +43,7 @@ function createDiv(inner) {
     div.appendChild(inner);
 }
 
-function getSpotifyData() {
+async function getSpotifyData() {
     let delayTime = 0;
     const clientId = "6ba6777c77804b479512791f7a56caa1";
     const clientSecret = "d19fc6dfd10f4d66a427c31ac93d4b3d";
@@ -55,7 +55,7 @@ function getSpotifyData() {
     // base64 encode client ID and secret
     const base64Encoded = btoa(`${clientId}:${clientSecret}`);
 
-    fetch("https://accounts.spotify.com/api/token", {
+    let response = await fetch("https://accounts.spotify.com/api/token", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -63,39 +63,36 @@ function getSpotifyData() {
         },
         body: "grant_type=client_credentials"
     })
-    .then(response => response.json()).then(data => {
-        info = fetchData(url, data.access_token);
 
-        info.then(data => {
-            list = document.createElement("ul");
-            list.classList.add("track-list");
-            for (let i = 0; i < data.tracks.items.length; i++) {
-                const track = data.tracks.items[i];
-                const listItem = document.createElement("li");
-                listItem.classList.add("track-item");
-                const trackName = document.createElement("span");
-                trackName.classList.add("track-name");
-                trackName.textContent = track.name;
-                const artistName = document.createElement("span");
-                artistName.classList.add("artist-name");
-                artistName.textContent = track.artists[0].name;
-                const previewButton = document.createElement("button");
-                previewButton.classList.add("preview-button");
-                previewButton.textContent = "Preview";
-                previewButton.addEventListener("click", () => {
-                    const audio = new Audio(track.preview_url);
-                    audio.play();
-                });
-                listItem.appendChild(trackName);
-                listItem.appendChild(artistName);
-                listItem.appendChild(previewButton);
-                list.appendChild(listItem);
-            }
+    response = await response.json();
+
+    info = await fetchData(url, response.access_token);
+
+    list = document.createElement("ul");
+    list.classList.add("track-list");
+
+    for (let i = 0; i < info.length; i++) {
+        const track = info[i];
+        const listItem = document.createElement("li");
+        listItem.classList.add("track-item");
+        const trackName = document.createElement("span");
+        trackName.classList.add("track-name");
+        trackName.textContent = track.name;
+        const artistName = document.createElement("span");
+        artistName.classList.add("artist-name");
+        artistName.textContent = track.artists[0].name;
+        const previewButton = document.createElement("button");
+        previewButton.classList.add("preview-button");
+        previewButton.textContent = "Preview";
+        previewButton.addEventListener("click", () => {
+            const audio = new Audio(track.preview_url);
+            audio.play();
         });
-    })
-    .catch(error => {
-        console.error("Error getting access token:", error);
-    });
+        listItem.appendChild(trackName);
+        listItem.appendChild(artistName);
+        listItem.appendChild(previewButton);
+        list.appendChild(listItem);
+    }
 
     checkForDivs(delayTime);
 
@@ -142,5 +139,6 @@ async function fetchData(url, token) {
     });
 
     data = await data.json();
+    data = data.tracks.items;
     return data;
 }
