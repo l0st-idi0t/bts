@@ -87,8 +87,10 @@ async function getSpotifyData() {
         artistName.classList.add("artist-name");
         artistName.textContent = track.artists[0].name;
         const previewButton = document.createElement("button");
-        previewButton.classList.add("preview-button");
-        previewButton.textContent = "Preview";
+        previewButton.classList.add("btn", "btn-primary", "rounded-circle", "preview-button");
+        const playIcon = document.createElement("i");
+        playIcon.classList.add("fas", "fa-play");
+        previewButton.appendChild(playIcon);
         previewButton.addEventListener("click", () => {
             const audio = new Audio(track.preview_url);
             if (currentAudio && currentAudio.src != audio.src) {
