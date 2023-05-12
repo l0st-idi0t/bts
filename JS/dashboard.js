@@ -29,7 +29,7 @@ function checkForDivs(delayTime) {
             document.getElementsByClassName("info")[0].remove();
         }, 400);
 
-        delayTime = 400;
+        delayTime.push(400);
     }
 }
 
@@ -44,8 +44,17 @@ function createDiv(inner) {
     div.appendChild(inner);
 }
 
+async function utilityDiv(inner) {
+    let delayTime = [];
+
+    checkForDivs(delayTime);
+
+    delay(delayTime[0]).then(() => {
+        createDiv(inner);
+    });
+}
+
 async function getSpotifyData() {
-    let delayTime = 0;
     const clientId = "6ba6777c77804b479512791f7a56caa1";
     const clientSecret = "d19fc6dfd10f4d66a427c31ac93d4b3d";
     const searchQuery = "BTS";
@@ -69,7 +78,7 @@ async function getSpotifyData() {
 
     info = await fetchData(url, response.access_token);
 
-    list = document.createElement("ul");
+    list = document.createElement("div");
     list.classList.add("track-list");
 
     // sort info by highest popularity to lowest
@@ -117,41 +126,19 @@ async function getSpotifyData() {
         list.appendChild(listItem);
     }
 
-    checkForDivs(delayTime);
-
-    delay(delayTime).then(() => {
-        createDiv(list);
-    });
+    utilityDiv(list);
 }
 
 function getYouTubeData() {
-    let delayTime = 0;
-
-    checkForDivs(delayTime);
-
-    delay(delayTime).then(() => {
-        createDiv();
-    });
+    utilityDiv(null);
 }
 
 function getInstagramData() {
-    let delayTime = 0;
-
-    checkForDivs(delayTime);
-
-    delay(delayTime).then(() => {
-        createDiv();
-    });
+    utilityDiv(null);
 }
 
 function getTwitterData() {
-    let delayTime = 0;
-
-    checkForDivs(delayTime);
-
-    delay(delayTime).then(() => {
-        createDiv();
-    });   
+    utilityDiv(null); 
 }
 
 async function fetchData(url, token) {

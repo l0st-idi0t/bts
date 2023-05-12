@@ -93,21 +93,41 @@ body, html {
     background-color: rgb(240, 240, 240);
     z-index: 9999;
     transition: transform 0.4s ease-in-out;
+    justify-content: center;
+    background: linear-gradient(to left, rgb(79, 76, 255), rgb(130, 168, 248));
 }
 
 .track-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px;
+    height: 95%;
+    width: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
 }
 
+.track-list::-webkit-scrollbar {
+    width: 0px;
+    height: auto;
+}
+  
 .track-item {
     display: grid;
     grid-template-areas:
         "track-name preview-button"
-        "artist-name artist-name";
-    grid-template-columns: 80% 20%;
+        "artist-name preview-button";
+    grid-template-columns: 90% 10%;
     grid-template-rows: 50% 50%;
+    background-color: rgb(93, 91, 226);
+    border-radius: 8px;
+    width: 95%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px 0px 0px 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    color: white;
 }
 
 .track-name {
@@ -120,7 +140,7 @@ body, html {
     border: none;
     border-radius: 50px;
     aspect-ratio: 1/1;
-    height: 10%;
+    width: 50%;
     color: white;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
