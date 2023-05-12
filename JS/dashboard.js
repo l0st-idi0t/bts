@@ -86,22 +86,22 @@ async function getSpotifyData() {
         return b.popularity - a.popularity;
     });
 
-    for (const track of info) {
+    for (let i = 0; i < info.length; i++) {
         const listItem = document.createElement("li");
         listItem.classList.add("track-item");
         const trackName = document.createElement("span");
         trackName.classList.add("track-name");
-        trackName.textContent = track.name;
+        trackName.textContent = `${i+1}. ${info[i].name}`;
         const artistName = document.createElement("span");
         artistName.classList.add("artist-name");
-        artistName.textContent = track.artists[0].name;
+        artistName.textContent = info[i].artists[0].name;
         const previewButton = document.createElement("button");
         previewButton.classList.add("btn", "btn-primary", "rounded-circle", "preview-button");
         const playIcon = document.createElement("i");
         playIcon.classList.add("fas", "fa-play");
         previewButton.appendChild(playIcon);
         previewButton.addEventListener("click", () => {
-            const audio = new Audio(track.preview_url);
+            const audio = new Audio(info[i].preview_url);
             if (currentAudio && currentAudio.src != audio.src) {
                 currentAudio.pause();
                 currentAudio.remove();
