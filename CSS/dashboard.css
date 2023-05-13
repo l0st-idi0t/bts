@@ -164,6 +164,14 @@ body, html {
     font-family: 'Montserrat', sans-serif;
     align-items: center;
     justify-content: center;
+    color: white;
+}
+
+.youtube-content iframe {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    aspect-ratio: 16/9;
+    width: 90%;
 }
 
 @keyframes fadein {
