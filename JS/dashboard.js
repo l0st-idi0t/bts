@@ -72,7 +72,7 @@ async function getSpotifyData() {
             "Authorization": `Basic ${base64Encoded}`
         },
         body: "grant_type=client_credentials"
-    })
+    });
 
     response = await response.json();
 
@@ -130,7 +130,37 @@ async function getSpotifyData() {
 }
 
 function getYouTubeData() {
-    utilityDiv(null);
+    const apiKey = "AIzaSyBfaSSPPldY3s-LvDFZzgXmDL1uxKs0PB8";
+    const searchQuery = "BTS";
+    const maxResults = 1;
+
+    const content = document.createElement("div");
+    content.classList.add("youtube-content");
+
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=${searchQuery}&type=video&videoDefinition=high&maxResults=${maxResults}&key=${apiKey}`;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        const videoId = data.items[0].id.videoId;
+        const videoTitle = data.items[0].snippet.title;
+        
+        const title = document.createElement("h2");
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = videoTitle;
+        title.textContent = tempElement.innerText;
+        content.appendChild(title);
+
+        const video = document.createElement("iframe");
+        console.log(`https://www.youtube.com/embed/${videoId}`)
+        video.setAttribute("src", `https://www.youtube.com/embed/${videoId}`);
+        video.setAttribute("frameborder", "0");
+        video.setAttribute("allowfullscreen", "true");
+        content.appendChild(video);
+    })
+    .catch(error => console.error(error));
+
+    utilityDiv(content);
 }
 
 function getInstagramData() {
