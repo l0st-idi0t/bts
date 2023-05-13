@@ -18,6 +18,16 @@ setTimeout(()=> {
     gridContainer.style.opacity = "1";
 }, 3000);
 
+// check for clicks
+document.body.addEventListener("click", (event) => {
+    // check if the click was outside the grid
+    if (event.target.classList.contains("grid-container")) {
+        return;
+    }
+
+    checkForDivs([]);
+});
+
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -152,7 +162,6 @@ function getYouTubeData() {
         content.appendChild(title);
 
         const video = document.createElement("iframe");
-        console.log(`https://www.youtube.com/embed/${videoId}`)
         video.setAttribute("src", `https://www.youtube.com/embed/${videoId}`);
         video.setAttribute("frameborder", "0");
         video.setAttribute("allowfullscreen", "true");
