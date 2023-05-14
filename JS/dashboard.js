@@ -20,8 +20,8 @@ setTimeout(()=> {
 
 // check for clicks
 document.body.addEventListener("click", (event) => {
-    // check if the click was outside the grid
-    if (event.target.classList.contains("grid-container")) {
+    // check if clicked element is contained within info div
+    if (event.target.closest(".info")) {
         return;
     }
 
@@ -112,6 +112,7 @@ async function getSpotifyData() {
         previewButton.appendChild(playIcon);
         previewButton.addEventListener("click", () => {
             const audio = new Audio(info[i].preview_url);
+            previewButton.appendChild(audio);
             if (currentAudio && currentAudio.src != audio.src) {
                 currentAudio.pause();
                 currentAudio.remove();
@@ -174,7 +175,7 @@ function getYouTubeData() {
 
 function getInstagramData() {
     // https://www.instagram.com/bts.bighitofficial/?__a=1&__d=dis
-    
+    // graphql -> edge_owner_to_timeline_media -> edges -> node
     utilityDiv(null);
 }
 
